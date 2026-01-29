@@ -1,21 +1,57 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Chaser : MonoBehaviour
 {
-   [SerializeField] Transform target;
-    public float moveSpeed = 4;
+    [SerializeField] Renderer boundingArea;
+   [SerializeField] private Transform target;
+    private AudioSource _source;
+    public float moveSpeed = 6;
+    private bool enraged = false;
+    public float catchDistance = 0.5f;
+    public UnityEvent events;
+    private void Start()
+    {
+        
+        _source = GetComponent<AudioSource>();
+        moveSpeed /= 2;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        GoTarget();
+        if (!enraged)
+        {
+            StartCoroutine(RageMode());
+        }
+       StartCoroutine(GoTarget());
         
     }
-    void GoTarget()
+    private System.Collections.IEnumerator GoTarget()
     {
-        target.position = new Vector3 (target.position.x, transform.position.y, transform.position.z);
-        
+        Vector3 targetCorrected = new Vector3(target.transform.position.x, transform.position.y, transform.position.z);
+       float distance = Vector3.Distance(transform.position, targetCorrected);
+        Debug.Log(distance);
+        yield return new WaitForSeconds(0);
+        transform.position = Vector3.MoveTowards(transform.position, targetCorrected, moveSpeed * 0.020f);
+        if(distance < catchDistance)
+        {
+            events.Invoke();
+        }
     }
    
+    private System.Collections.IEnumerator RageMode()
+    {
+        Vector3 targetCorrected = new Vector3(target.transform.position.x, transform.position.y, transform.position.z);
+        float distance = Vector3.Distance(transform.position, targetCorrected);
+            if (boundingArea.isVisible && distance < 15 || distance > 30)
+            {
+                enraged = true;
+            yield return new WaitForSeconds(1);
+            _source.pitch = 2f;
+                moveSpeed *= 2;
+            }       
+    }
 }
