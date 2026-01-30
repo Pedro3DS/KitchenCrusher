@@ -1,16 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class UiManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject taskPanel;
+    [SerializeField] private TMP_Text points;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+    
 }
