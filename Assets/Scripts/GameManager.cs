@@ -1,18 +1,56 @@
-using System.Collections;
-using System.Net.NetworkInformation;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(JoystickController))]
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance = null;
 
-    public void ResetScene(float time)
+    [Header("Camera Movement Multiply")]
+    public float cameraMovementMultiply = 1.5f;
+
+    #region Events
+    public static event Action OnChangeToFirstPersonView;
+    public static event Action OnChangeToTopDownView;
+    #endregion
+
+    void Awake()
     {
-        StartCoroutine(ResetTimer(time));
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
     }
-    private IEnumerator ResetTimer(float time)
+
+    void OnEnable()
     {
-        yield return new WaitForSeconds(time);
-       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        JoystickController.OnSouthButtonPressed += HandleSouthButtonPressed;
+    }
+    void OnDisable()
+    {
+        JoystickController.OnSouthButtonPressed -= HandleSouthButtonPressed;
+    }
+    void HandleSouthButtonPressed(int joystickIndex)
+    {
+        // Toggle between views on button press
+        if (joystickIndex == 0) 
+
+            OnChangeToFirstPersonView?.Invoke();
+        if (joystickIndex == 1) 
+
+            OnChangeToTopDownView?.Invoke();
+
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }
