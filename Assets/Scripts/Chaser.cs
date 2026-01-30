@@ -11,7 +11,7 @@ public class Chaser : MonoBehaviour
     public float moveSpeed = 6;
     private bool enraged = false;
     public float catchDistance = 0.5f;
-    public UnityEvent events;
+    public UnityEvent catchEvents;
     private void Start()
     {
         
@@ -38,7 +38,7 @@ public class Chaser : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetCorrected, moveSpeed * 0.020f);
         if(distance < catchDistance)
         {
-            events.Invoke();
+            catchEvents.Invoke();
         }
     }
    
