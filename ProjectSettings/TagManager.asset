@@ -7,6 +7,8 @@ TagManager:
   - Box
   - Handler
   - CookingStation
+  - BoxPlate
+  - Ground
   layers:
   - Default
   - TransparentFX

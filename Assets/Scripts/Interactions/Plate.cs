@@ -104,6 +104,11 @@ public class Plate : MonoBehaviour
         isHeld = true;
         transform.SetParent(handler.holdPoint);
         transform.localPosition = Vector3.zero;
+
+        if(GetComponent<Rigidbody>() != null)
+        {
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
         // transform.localRotation = Quaternion.identity;
         // Desativa o collider para não atrapalhar outras interações enquanto carrega
         GetComponent<Collider>().enabled = false;
@@ -133,5 +138,19 @@ public class Plate : MonoBehaviour
     public bool IsFull()
     {
         return ingredients.Count >= maxIngredients;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("BoxPlate"))
+        {
+            // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+        if(collision.gameObject.CompareTag("Ground") && !isHeld)
+        {
+            Debug.Log("Prato Quebrou!");
+           Destroy(this.gameObject);
+           GameEvents.OnPlateBraked?.Invoke();
+        }
     }
 }

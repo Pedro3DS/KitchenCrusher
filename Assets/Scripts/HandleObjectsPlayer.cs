@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HandleObjectsPlayer : MonoBehaviour
@@ -44,7 +45,10 @@ public class HandleObjectsPlayer : MonoBehaviour
 
         // 3. Se for um prato, avisa que não está mais sendo segurado
         Plate plate = itemTransform.GetComponent<Plate>();
-        if (plate != null) plate.isHeld = false;
+        if (plate != null) {
+            plate.isHeld = false;
+            rb.constraints = RigidbodyConstraints.None;
+            }
 
         // Limpa as referências do player
         heldIngredient = null;
@@ -60,6 +64,7 @@ public class HandleObjectsPlayer : MonoBehaviour
         GameObject prefab = cooked ? ingredient.cookedPrefab : ingredient.rawPrefab;
         GameObject instance = Instantiate(prefab, holdPoint.position, holdPoint.rotation, holdPoint);
 
+        
         // Ao segurar, removemos a física para não bugar o movimento do player
         Rigidbody rb = instance.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;

@@ -16,6 +16,7 @@ public class GameEvents : MonoBehaviour
 
     // Entrega / Balcão
     public static Action<Plate> OnPlateDelivered;
+    public static Action OnPlateBraked;
 
     // Tasks
     public static Action<KitchenTask> OnTaskCompleted;
