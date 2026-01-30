@@ -12,15 +12,8 @@ public class TrashInteraction : MonoBehaviour
             {
                 HandleObjectsPlayer handleObjectsPlayer = other.GetComponent<HandleObjectsPlayer>();
                 Debug.Log("Player interacted with the trash.");
-                if (handleObjectsPlayer.heldIngredient != null)
-                {
-                    Debug.Log("Player discarded: " + handleObjectsPlayer.heldIngredient.ingredientName);
-                    handleObjectsPlayer.heldIngredient = null;
-                    foreach (Transform child in handleObjectsPlayer.holdPoint)
-                    {
-                        Destroy(child.gameObject);
-                    }
-                }
+                if (handleObjectsPlayer.heldIngredient != null) handleObjectsPlayer.ClearHeldItem();
+
             }
         }
     }
