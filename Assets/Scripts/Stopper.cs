@@ -4,9 +4,12 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Stopper : MonoBehaviour
 {
+    [SerializeField] Volume filter;
     [SerializeField] Rigidbody player;
     private AudioSource _source;
     public List<KeyCode> viewedInputs = new List<KeyCode>();
@@ -48,8 +51,11 @@ public class Stopper : MonoBehaviour
             
             rand = UnityEngine.Random.Range(3, 5);
             yield return new WaitForSeconds(rand);
-            isWatching = false;
-            inactiveEvent.Invoke();
+            if (!spotted)
+            {
+                isWatching = false;
+                inactiveEvent.Invoke();
+            }
            // Debug.Log("I DONT see you");
         }
     }
@@ -61,7 +67,7 @@ public class Stopper : MonoBehaviour
             if (Input.GetKey( viewedInputs[i]) && !spotted)
             {
                 spotted = true;
-                catchEvents.Invoke();
+                StartCoroutine(Kill());
                // Debug.Log("ah gottem ggs");
             }
         }
@@ -78,5 +84,18 @@ public class Stopper : MonoBehaviour
         textt.SetActive(true);
         yield return new WaitForSeconds(1);
         textt.SetActive(false);
+    }
+    private System.Collections.IEnumerator Kill()
+    {
+        if (filter.profile.TryGet(out ColorAdjustments colorAdjustments))
+        {
+            while (colorAdjustments.colorFilter.value != Color.black)
+            {
+                yield return new WaitForSeconds(0);
+                colorAdjustments.colorFilter.value = Vector4.MoveTowards(colorAdjustments.colorFilter.value, Color.black, 0.01f);
+            }
+        }
+        yield return new WaitForSeconds(0.5f);
+        catchEvents.Invoke();
     }
 }
