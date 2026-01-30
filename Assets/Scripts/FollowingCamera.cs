@@ -12,8 +12,11 @@ public class FollowingCamera : MonoBehaviour
         if (target != null)
         {
             Vector3 desiredPosition = target.position + offset;
+
             desiredPosition.y = transform.position.y; // Manter a posição Y da câmera fixa
+
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            
             transform.position = smoothedPosition;
 
             transform.position = new Vector3(
