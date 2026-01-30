@@ -9,8 +9,14 @@ public class Ingredient : ScriptableObject
     [Header("Ingredient Info")]
     public string ingredientName;
     public Sprite ingredientIcon;
-    public GameObject ingredientPrefab;
+
+    [Header("Prefabs")]
+    public GameObject rawPrefab;
+    public GameObject cookedPrefab;
+
+    [Header("Cooking")]
     public ResourceType ingredientType;
-    public float cookingTime;
+    public float cookingTime;      // tempo até ficar pronto
+    public float burnTime = 3f;    // tempo extra até queimar
     public bool needCooking;
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Box
   - Handler
+  - CookingStation
   layers:
   - Default
   - TransparentFX

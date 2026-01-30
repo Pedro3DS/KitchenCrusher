@@ -60,4 +60,11 @@ public class JoystickController : MonoBehaviour
 
         return Gamepad.all[0].buttonSouth.isPressed;
     }
+    public bool IsEastButtonPressed()
+    {
+        if (!HasGamepad())
+            return false;
+
+        return Gamepad.all[0].buttonEast.isPressed;
+    }
 }

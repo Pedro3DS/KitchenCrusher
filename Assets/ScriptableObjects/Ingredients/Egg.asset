@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Egg
   m_EditorClassIdentifier: 
   ingredientName: Egg
-  ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 2699217410195806215, guid: aada81ac19c84d24f92638b436e5fe3c, type: 3}
+  ingredientIcon: {fileID: 21300000, guid: 9d49613f7968b6e42a2ef30cd244869d, type: 3}
+  rawPrefab: {fileID: 2699217410195806215, guid: fe61eeb80e19f144dad67b7f926742f1, type: 3}
+  cookedPrefab: {fileID: 2699217410195806215, guid: aada81ac19c84d24f92638b436e5fe3c, type: 3}
   ingredientType: 1
   cookingTime: 2
+  burnTime: 3
+  needCooking: 1

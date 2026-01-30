@@ -18,6 +18,8 @@ public class TopViewMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 inputDirection;
 
+    private float yValue;
+
 
     void Awake()
     {
@@ -25,7 +27,8 @@ public class TopViewMovement : MonoBehaviour
 
         // Importante para Top Down
         rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotationZ;
+        yValue = transform.position.y;
     }
 
     void Update()

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Rice
   m_EditorClassIdentifier: 
   ingredientName: Rice
-  ingredientIcon: {fileID: 0}
-  ingredientPrefab: {fileID: 2428057969179871188, guid: ddd055701e3d1074ca4de77f65b505a5, type: 3}
+  ingredientIcon: {fileID: 21300000, guid: 9144cf9d2bd602247a60ed4cf77f229a, type: 3}
+  rawPrefab: {fileID: 2428057969179871188, guid: 4f27e4915ef9ba242a8b52a2d5530073, type: 3}
+  cookedPrefab: {fileID: 2428057969179871188, guid: ddd055701e3d1074ca4de77f65b505a5, type: 3}
   ingredientType: 3
   cookingTime: 3
+  burnTime: 3
+  needCooking: 0
