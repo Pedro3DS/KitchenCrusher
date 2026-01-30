@@ -42,7 +42,7 @@ public class Stopper : MonoBehaviour
     {
         while (isOn && !spotted)
         {
-            int rand = UnityEngine.Random.Range(7, 10);
+            int rand = UnityEngine.Random.Range(7, 14);
             yield return new WaitForSeconds(rand);
            // Debug.Log("I see you");
             activeEvents.Invoke();
@@ -96,6 +96,7 @@ public class Stopper : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(0.5f);
+        Debug.Log("Killed by stopper");
         catchEvents.Invoke();
     }
 }

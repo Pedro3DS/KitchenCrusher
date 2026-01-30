@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,11 +7,13 @@ public class Ghost : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Material mat;
     private AudioSource _source;
-    public float moveSpeed = 8;
+    public float moveSpeed = 2;
     public float catchDistance = 0.5f;
     public UnityEvent catchEvents;
     private bool spawned;
     private bool On = true;
+    private bool hunting;
+    private Transform mainTarget;
     [SerializeField] float minX, maxX, minZ, maxZ;
 
     private void OnEnable()
@@ -19,6 +22,8 @@ public class Ghost : MonoBehaviour
     }
     private void Start()
     {
+        mainTarget = target;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0);
         _source = GetComponent<AudioSource>();
     }
 
@@ -29,23 +34,30 @@ public class Ghost : MonoBehaviour
         {
             transform.position = new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
             spawned = true;
-            int rand = UnityEngine.Random.Range(10, 14);
+            int rand = UnityEngine.Random.Range(14, 24);
             yield return new WaitForSeconds(rand);
 
-            while (mat.color.a > 0)
-            {
-              float colorValue = mat.color.a;
-              colorValue = Mathf.MoveTowards(colorValue, 1, 0.1f);
-            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, colorValue);
-            }
-
-            yield return new WaitForSeconds(3);
             while (mat.color.a < 1)
             {
+                yield return new WaitForSeconds(0);
+              float colorValue = mat.color.a;
+              colorValue = Mathf.MoveTowards(colorValue, 1, 0.05f);
+            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, colorValue);
+            }
+            yield return new WaitForSeconds(2);
+            hunting = true;
+            StartCoroutine(GetTarget());
+            yield return new WaitForSeconds(3);
+            hunting = false;
+            StopCoroutine(GetTarget());
+            while (mat.color.a > 0)
+            {
+                yield return new WaitForSeconds(0);
                 float colorValue = mat.color.a;
-                colorValue = Mathf.MoveTowards(colorValue, 0, 0.1f);
+                colorValue = Mathf.MoveTowards(colorValue, 0, 0.05f);
                 mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, colorValue);
             }
+            spawned = false;
             // Debug.Log("I see you");
 
             // Debug.Log("I DONT see you");
@@ -53,28 +65,46 @@ public class Ghost : MonoBehaviour
     }
     private System.Collections.IEnumerator GetTarget()
     {
-        if (target.gameObject.activeSelf)
+        while (hunting)
         {
-            Vector3 targetCorrected = new Vector3(target.transform.position.x, transform.position.y, target.position.z);
-            float distance = Vector3.Distance(transform.position, targetCorrected);
-            Debug.Log(distance);
-            yield return new WaitForSeconds(0);
-            transform.position = Vector3.MoveTowards(transform.position, targetCorrected, moveSpeed * 0.020f);
-            if (distance < catchDistance)
+            target = mainTarget;
+            if (target.gameObject.activeSelf && moveSpeed != 0)
             {
-                catchEvents.Invoke();
-            }
-        } else
-        {
-            target = transform;
-            for(int i = 0; i < 3; i++)
-            {
-                yield return new WaitForSeconds(1);
-                if (target.gameObject.activeSelf)
+                float distance = Vector3.Distance(transform.position, mainTarget.position);
+                //Debug.Log(distance);
+                yield return new WaitForSeconds(0);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * 0.020f);
+                if (distance < catchDistance)
                 {
-                    break;
+                    Debug.Log("Killed by ghost");
+                    catchEvents.Invoke();
                 }
             }
+            else
+            {
+                yield return new WaitForSeconds(0);
+                target = transform;
+            }
         }
+    }
+
+    public void StopIt(float speed)
+    {
+        StartCoroutine(StopperInteraction(speed));
+    }
+    private IEnumerator StopperInteraction(float speed)
+    {
+        yield return new WaitForSeconds(0);
+        if (speed <= 0)
+        {
+            moveSpeed = 0;
+        }
+        else 
+        {
+            yield return new WaitForSeconds(3);
+            moveSpeed = speed;
+        }
+        
+        
     }
 }

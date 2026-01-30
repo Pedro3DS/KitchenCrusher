@@ -7,15 +7,15 @@ public class HideInteraction : MonoBehaviour
     public UnityEvent hideEvents;
     public UnityEvent showEvents;
     bool hiding;
+    private bool interactionLocked;
     void OnTriggerStay(Collider other)
     {
 
         if (other.CompareTag("Handler") && hiding == false)
         {
             Debug.Log("Player stayed in hiding spot interaction area.");
-            if (Input.GetKeyDown(KeyCode.E) || JoystickController.Instance != null && JoystickController.Instance.IsSouthButtonPressed())
+            if (InteractPressed())
             {
-                HandleObjectsPlayer handleObjectsPlayer = other.GetComponent<HandleObjectsPlayer>();
                 Debug.Log("Player interacted with the hiding spot.");
                 hideEvents.Invoke();
                 
@@ -31,12 +31,28 @@ public class HideInteraction : MonoBehaviour
         while (hiding)
         {
             yield return new WaitForSeconds(0);
-            if (Input.GetKeyDown(KeyCode.E) || JoystickController.Instance != null && JoystickController.Instance.IsSouthButtonPressed())
+            if (InteractPressed())
             {
                 showEvents.Invoke();
                 hiding = false;
             }
         }
 
+    }
+    bool InteractPressed()
+    {
+        if (interactionLocked) return false;
+        if (Input.GetKey(KeyCode.E) || JoystickController.Instance != null && JoystickController.Instance.IsSouthButtonPressed())
+        {
+            StartCoroutine(InteractionCooldown());
+            return true;
+        }
+        return false;
+    }
+    IEnumerator InteractionCooldown()
+    {
+        interactionLocked = true;
+        yield return new WaitForSeconds(0.2f);
+        interactionLocked = false;
     }
 }
