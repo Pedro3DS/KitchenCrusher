@@ -127,7 +127,30 @@ public class KitchenTaskController : MonoBehaviour
         // Spawna a Task do Glitch (Armazém)
         SpawnTaskUI(glitchTask);
 
+        // Dispara evento global de estresse para o sistema de glitches
+        GameEvents.OnStressTriggered?.Invoke();
+
         Debug.Log("SISTEMA DE ESTRESSE ATIVADO. Vá para o armazém.");
+    }
+
+    /// <summary>
+    /// Chamado quando o jogador completa a task de glitch e o estresse é resolvido.
+    /// </summary>
+    public void ResolveStress()
+    {
+        if (!isStressed) return;
+
+        isStressed = false;
+        failedTasksCount = 0;
+        stressThreshold = Random.Range(3, 6); // Novo threshold
+
+        // Dispara evento de estresse resolvido
+        GameEvents.OnStressResolved?.Invoke();
+
+        // Reinicia o ciclo de tasks
+        StartCoroutine(TaskRoutine());
+
+        Debug.Log("ESTRESSE RESOLVIDO. Voltando ao normal.");
     }
 }
 

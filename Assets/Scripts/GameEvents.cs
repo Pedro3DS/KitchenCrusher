@@ -20,6 +20,11 @@ public class GameEvents : MonoBehaviour
 
     // Tasks
     public static Action<KitchenTask> OnTaskCompleted;
+    public static Action<KitchenTask> OnTaskFailed;
+
+    // Sistema de Estresse / Glitch
+    public static Action OnStressTriggered;
+    public static Action OnStressResolved;
 
     public static Action OnHandleTrigger;
     public static Action OnHandleTriggerRelease;

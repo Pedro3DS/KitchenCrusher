@@ -64,7 +64,7 @@ public class HandleObjectsPlayer : MonoBehaviour
         GameObject prefab = cooked ? ingredient.cookedPrefab : ingredient.rawPrefab;
         GameObject instance = Instantiate(prefab, holdPoint.position, holdPoint.rotation, holdPoint);
 
-        
+
         // Ao segurar, removemos a física para não bugar o movimento do player
         Rigidbody rb = instance.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
@@ -72,6 +72,10 @@ public class HandleObjectsPlayer : MonoBehaviour
         heldIngredientInstance = instance.GetComponent<IngredientInstance>();
         if (heldIngredientInstance == null) heldIngredientInstance = instance.AddComponent<IngredientInstance>();
         heldIngredientInstance.Setup(ingredient, cooked);
+
+        // Dispara evento quando ingrediente é pego
+        Debug.Log($"[HandleObjectsPlayer] Disparando OnIngredientPicked: {ingredient.ingredientName}");
+        GameEvents.OnIngredientPicked?.Invoke(ingredient);
     }
 
     public void ClearHeldItem()
