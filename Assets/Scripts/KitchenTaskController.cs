@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -43,11 +44,14 @@ public class KitchenTaskController : MonoBehaviour
 
     private readonly List<TaskObject> activeTasks = new List<TaskObject>();
 
+    public UnityEvent loseEvent;
+
     private void Start()
     {
         // Define o limite de estresse entre 3 e 5
         stressThreshold = Random.Range(3, 6);
         StartCoroutine(TaskRoutine());
+        points = PlayerPrefs.GetInt("Points");
     }
 
     private void OnEnable() => GameEvents.OnPlateDelivered += CheckTasks;
@@ -105,7 +109,7 @@ public class KitchenTaskController : MonoBehaviour
 
     void HandleTaskCompleted(TaskObject task)
     {
-        AddPoints(true);
+        AddPoints(true, task.TaskData);
         activeTasks.Remove(task);
         // Acelera o jogo a cada acerto
         currentSpawnTime = Mathf.Max(3f, currentSpawnTime - 0.5f);
@@ -115,7 +119,7 @@ public class KitchenTaskController : MonoBehaviour
     void HandleTaskFailed(TaskObject task)
     {
         activeTasks.Remove(task);
-        AddPoints(false);
+        AddPoints(false, task.TaskData);
         failedTasksCount++;
 
         Debug.Log($"Tasks falhadas: {failedTasksCount} / {stressThreshold}");
@@ -161,12 +165,12 @@ public class KitchenTaskController : MonoBehaviour
             Mathf.MoveTowards(stressBar.value, finalValue, 0.1f);
         }
     }
-    void AddPoints(bool add)
+    void AddPoints(bool add, KitchenTask task)
     {
         pointQueue++;
-        StartCoroutine(PointsAnim(add));
+        StartCoroutine(PointsAnim(add, task));
     }
-    private IEnumerator PointsAnim(bool add)
+    private IEnumerator PointsAnim(bool add, KitchenTask task)
     {
         while (pointQueue > 0) {
             yield return new WaitForSeconds(0);
@@ -176,7 +180,7 @@ public class KitchenTaskController : MonoBehaviour
 
                 if (add)
                 {
-                    points++;
+                    points += task.quantity;
                     pointText.text = $"{points}x";
                     pointAnim.Play("pointAnim");
                     yield return new WaitForSeconds(0.5f);
@@ -186,14 +190,15 @@ public class KitchenTaskController : MonoBehaviour
                 }
                 else
                 {
-                    if (points > 2)
+                    if (points > task.quantity)
                     {
-                        points -= 2;
+                        points -= task.quantity;
                         pointText.text = $"{points}x";
                     } else
                     {
                         points = 1;
                         pointText.text = $"{points}x";
+                        loseEvent.Invoke();
                     }
                         pointAnim.Play("failAnim");
                     yield return new WaitForSeconds(0.5f);
