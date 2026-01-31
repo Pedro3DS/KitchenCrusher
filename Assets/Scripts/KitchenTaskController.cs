@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,10 +21,15 @@ public class KitchenTaskController : MonoBehaviour
     [SerializeField] private Transform taskListField;
     [SerializeField] private TaskObject taskPrefab;
     [SerializeField] private Slider stressBar;
+    [SerializeField] TextMeshProUGUI pointText;
+    [SerializeField] Animator pointAnim;
 
     [Header("Tasks")]
     [SerializeField] private KitchenTask[] possibleTasks;
     [SerializeField] private KitchenTask glitchTask; // Arraste a task do armazém aqui
+    private int pointQueue;
+    private int points = 1;
+    private bool pointBusy;
 
     [Header("Configuração Progressiva")]
     [SerializeField] private float currentSpawnTime = 8f;
@@ -99,6 +105,7 @@ public class KitchenTaskController : MonoBehaviour
 
     void HandleTaskCompleted(TaskObject task)
     {
+        AddPoints(true);
         activeTasks.Remove(task);
         // Acelera o jogo a cada acerto
         currentSpawnTime = Mathf.Max(3f, currentSpawnTime - 0.5f);
@@ -108,6 +115,7 @@ public class KitchenTaskController : MonoBehaviour
     void HandleTaskFailed(TaskObject task)
     {
         activeTasks.Remove(task);
+        AddPoints(false);
         failedTasksCount++;
 
         Debug.Log($"Tasks falhadas: {failedTasksCount} / {stressThreshold}");
@@ -117,6 +125,10 @@ public class KitchenTaskController : MonoBehaviour
             TriggerStressEvent();
         }
 
+        if (stressBar.gameObject.activeSelf)
+        {
+            SliderValue(0.2f);
+        }
         Destroy(task.gameObject);
     }
 
@@ -147,6 +159,50 @@ public class KitchenTaskController : MonoBehaviour
         {
             yield return new WaitForSeconds(0);
             Mathf.MoveTowards(stressBar.value, finalValue, 0.1f);
+        }
+    }
+    void AddPoints(bool add)
+    {
+        pointQueue++;
+        StartCoroutine(PointsAnim(add));
+    }
+    private IEnumerator PointsAnim(bool add)
+    {
+        while (pointQueue > 0) {
+            yield return new WaitForSeconds(0);
+            if (!pointBusy)
+            {
+                pointBusy = true;
+
+                if (add)
+                {
+                    points++;
+                    pointText.text = $"{points}x";
+                    pointAnim.Play("pointAnim");
+                    yield return new WaitForSeconds(0.5f);
+                    pointQueue--;
+                    pointBusy = false;
+                    break;
+                }
+                else
+                {
+                    if (points > 2)
+                    {
+                        points -= 2;
+                        pointText.text = $"{points}x";
+                    } else
+                    {
+                        points = 1;
+                        pointText.text = $"{points}x";
+                    }
+                        pointAnim.Play("failAnim");
+                    yield return new WaitForSeconds(0.5f);
+                    pointQueue--;
+                    pointBusy = false;
+                    break;
+                }
+
+            }
         }
     }
 }

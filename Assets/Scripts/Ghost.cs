@@ -35,7 +35,7 @@ public class Ghost : MonoBehaviour
     {
         while (On && !spawned)
         {                  
-            int rand = UnityEngine.Random.Range(1, 2);     
+            int rand = UnityEngine.Random.Range(14, 24);     
             yield return new WaitForSeconds(rand);
             spawned = true;
             rand = UnityEngine.Random.Range(0, 2);
@@ -48,13 +48,14 @@ public class Ghost : MonoBehaviour
                 spawned = false;
                 continue;
             }
+            _source.Play();
+            yield return new WaitForSeconds(1);
             if (moveSpeed > 0)
             {
                 HideText(hideText);
             }
             transform.position = new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
-            _source.Play();
-            yield return new WaitForSeconds(0.2f);
+            
             while (mat.color.a < 1)
             {
                 yield return new WaitForSeconds(0);
@@ -63,10 +64,10 @@ public class Ghost : MonoBehaviour
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, colorValue);
             }
             particle.Play();
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(4);
             hunting = true;
             StartCoroutine(GetTarget());
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
             hunting = false;
             StopCoroutine(GetTarget());
             while (mat.color.a > 0)
@@ -122,7 +123,7 @@ public class Ghost : MonoBehaviour
         else 
         {
             HideText(hideText);
-            yield return new WaitForSeconds(3);        
+            yield return new WaitForSeconds(5);        
             moveSpeed = speed;
         }
         
