@@ -384,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 845348690}
     - target: {fileID: 9017829033021825153, guid: 84a4cd86b8b855c4bb76cd24fe7471a6, type: 3}
       propertyPath: moveSpeed
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9017829033021825153, guid: 84a4cd86b8b855c4bb76cd24fe7471a6, type: 3}
       propertyPath: catchDistance
@@ -2261,7 +2261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810912226865741125, guid: 814216c92d19fd84e90aa29b78be8d29, type: 3}
       propertyPath: inactiveEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_FloatArgument
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4810912226865741125, guid: 814216c92d19fd84e90aa29b78be8d29, type: 3}
       propertyPath: catchEvents.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3402,13 +3402,17 @@ PrefabInstance:
       value: -0.62
       objectReference: {fileID: 0}
     - target: {fileID: -2884431493617370476, guid: f462ac5c74289794c95c09f1c9ff320e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2884431493617370476, guid: f462ac5c74289794c95c09f1c9ff320e, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: ac9f1f854581d37499cce9ef2a24611b, type: 2}
+      objectReference: {fileID: 2100000, guid: 67ae3991671603e47b58e4740c80e54a, type: 2}
     - target: {fileID: -1664356502360079122, guid: f462ac5c74289794c95c09f1c9ff320e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 94c3d7fb420fd5e4d968fe7e6c944ff7, type: 2}
+      objectReference: {fileID: 2100000, guid: f2a62d19e74159f45be611501cdba901, type: 2}
     - target: {fileID: -1344640979668531191, guid: f462ac5c74289794c95c09f1c9ff320e, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.89

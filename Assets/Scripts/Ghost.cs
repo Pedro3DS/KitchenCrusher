@@ -35,7 +35,7 @@ public class Ghost : MonoBehaviour
     {
         while (On && !spawned)
         {                  
-            int rand = UnityEngine.Random.Range(14, 24);     
+            int rand = UnityEngine.Random.Range(1, 2);     
             yield return new WaitForSeconds(rand);
             spawned = true;
             rand = UnityEngine.Random.Range(0, 2);
@@ -93,7 +93,7 @@ public class Ghost : MonoBehaviour
                 float distance = Vector3.Distance(transform.position, mainTarget.position);
                 //Debug.Log(distance);
                 yield return new WaitForSeconds(0);
-                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.fixedDeltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * 0.01f);
                 if (distance < catchDistance)
                 {
                     Debug.Log("Killed by ghost");
