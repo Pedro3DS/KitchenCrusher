@@ -18,7 +18,7 @@ public class TopViewMovement : MonoBehaviour
 
     private Rigidbody rb;
     [SerializeField] private Animator animator;
-    private Vector3 inputDirection;
+    public Vector3 inputDirection;
 
     private float yValue;
 
