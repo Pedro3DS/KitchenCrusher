@@ -77,7 +77,8 @@ public class TopViewMovement : MonoBehaviour
         Vector3 forwardMovement = transform.forward * moveSpeed;
         if (usePhysics)
         {
-            animator?.SetBool("Moving", true);
+            if (animator != null)
+                animator?.SetBool("Moving", true);
             moveParticles?.Play();
             rb.linearVelocity = new Vector3(
                 forwardMovement.x,
@@ -88,7 +89,8 @@ public class TopViewMovement : MonoBehaviour
         else
         {
             moveParticles?.Play();
-            animator?.SetBool("Moving", true);
+            if (animator != null)
+                animator?.SetBool("Moving", true);
             transform.position += forwardMovement * Time.deltaTime;
         }
     }
@@ -97,7 +99,8 @@ public class TopViewMovement : MonoBehaviour
         if (usePhysics)
         {
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
-            animator?.SetBool("Moving", false);
+            if (animator != null)
+                animator?.SetBool("Moving", false);
             moveParticles?.Stop();
         }
     }

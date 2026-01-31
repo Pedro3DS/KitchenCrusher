@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public float cameraMovementMultiply = 1.5f;
 
     #region Events
-    public static event Action OnChangeToFirstPersonView;
-    public static event Action OnChangeToTopDownView;
+    public static Action OnChangeToFirstPersonView;
+    public static  Action OnChangeToTopDownView;
     public static Action OnChangeToMomView;
     #endregion
 
