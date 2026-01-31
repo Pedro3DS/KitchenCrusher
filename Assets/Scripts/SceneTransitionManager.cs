@@ -15,7 +15,6 @@ public class SceneTransitionManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Essencial para não sumir na troca
         }
         else
         {

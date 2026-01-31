@@ -40,7 +40,7 @@ public class KitchenTaskController : MonoBehaviour
     private int failedTasksCount = 0;
     private int stressThreshold;
     private bool isStressed = false;
-    private int stressLevel = 0;
+    // private int stressLevel = 0;
     
 
     private readonly List<TaskObject> activeTasks = new List<TaskObject>();

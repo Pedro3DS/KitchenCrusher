@@ -137,7 +137,7 @@ public class Plate : MonoBehaviour
     }
     public bool IsFull()
     {
-        return ingredients.Count >= maxIngredients;
+        return ingredients.Count > maxIngredients;
     }
 
     void OnCollisionEnter(Collision collision)

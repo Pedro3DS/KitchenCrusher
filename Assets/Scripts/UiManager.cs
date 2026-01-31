@@ -58,7 +58,7 @@ public class UiManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) || InteractPressed())
+        if (InteractPressed())
         {
             ToggleTaskPanel();
         }
@@ -74,7 +74,7 @@ public class UiManager : MonoBehaviour
     bool InteractPressed()
     {
         if (interactionLocked) return false;
-        if (Input.GetKeyDown(KeyCode.E) || JoystickController.Instance != null && JoystickController.Instance.IsSouthDPadPressed()) // Adicione seu Joystick aqui
+        if (Input.GetKeyDown(KeyCode.T) || JoystickController.Instance != null && JoystickController.Instance.IsSouthDPadPressed()) // Adicione seu Joystick aqui
         {
             StartCoroutine(InteractionCooldown());
             return true;
