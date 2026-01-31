@@ -17,8 +17,5 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(sceneName);
     }
-    public void SetPref(int value)
-    {
-        PlayerPrefs.SetInt("Points", value);
-    }
+
 }

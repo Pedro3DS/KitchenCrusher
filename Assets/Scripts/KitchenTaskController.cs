@@ -41,10 +41,12 @@ public class KitchenTaskController : MonoBehaviour
     private int stressThreshold;
     private bool isStressed = false;
     private int stressLevel = 0;
+    
 
     private readonly List<TaskObject> activeTasks = new List<TaskObject>();
 
     public UnityEvent loseEvent;
+    [SerializeField] GameObject finalTrigger;
 
     private void Start()
     {
@@ -52,6 +54,10 @@ public class KitchenTaskController : MonoBehaviour
         stressThreshold = Random.Range(3, 6);
         StartCoroutine(TaskRoutine());
         points = PlayerPrefs.GetInt("Points");
+        if (points <= 0)
+        {
+            points = 1;
+        }
     }
 
     private void OnEnable() => GameEvents.OnPlateDelivered += CheckTasks;
@@ -147,7 +153,7 @@ public class KitchenTaskController : MonoBehaviour
 
         // Spawna a Task do Glitch (Armazém)
         SpawnTaskUI(glitchTask);
-
+        finalTrigger.gameObject.SetActive(true);
         Debug.Log("SISTEMA DE ESTRESSE ATIVADO. Vá para o armazém.");
     }
 
@@ -209,6 +215,10 @@ public class KitchenTaskController : MonoBehaviour
 
             }
         }
+    }
+    public void SetPref()
+    {
+        PlayerPrefs.SetInt("Points", points);
     }
 }
 
