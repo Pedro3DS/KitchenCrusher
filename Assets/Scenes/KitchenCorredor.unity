@@ -10629,6 +10629,31 @@ MonoBehaviour:
     ingredientRequire: {fileID: 11400000, guid: f73ea97d5046cc14fba2781b4b5dd7ef, type: 2}
     hasGlitchTask: 1
     timeToComplete: 50
+  - taskName: Ovo
+    quantity: 1
+    ingredientRequire: {fileID: 11400000, guid: d3b75df51f8338741a694b5d145a2479, type: 2}
+    hasGlitchTask: 1
+    timeToComplete: 35
+  - taskName: Arroz
+    quantity: 3
+    ingredientRequire: {fileID: 11400000, guid: 5a2d9ab6745605e4ab9155d2f7aadefb, type: 2}
+    hasGlitchTask: 1
+    timeToComplete: 60
+  - taskName: Carne
+    quantity: 3
+    ingredientRequire: {fileID: 11400000, guid: f73ea97d5046cc14fba2781b4b5dd7ef, type: 2}
+    hasGlitchTask: 1
+    timeToComplete: 60
+  - taskName: Carne
+    quantity: 3
+    ingredientRequire: {fileID: 11400000, guid: f73ea97d5046cc14fba2781b4b5dd7ef, type: 2}
+    hasGlitchTask: 1
+    timeToComplete: 60
+  - taskName: Carne
+    quantity: 3
+    ingredientRequire: {fileID: 11400000, guid: f73ea97d5046cc14fba2781b4b5dd7ef, type: 2}
+    hasGlitchTask: 1
+    timeToComplete: 60
   glitchTask:
     taskName: Paes
     quantity: 3
