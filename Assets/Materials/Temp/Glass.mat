@@ -98,7 +98,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DisortStrength: 5
+    - _DisortStrength: 4.1
     - _DistortionOnTexture: 0.711
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -120,7 +120,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Tiling: 385
+    - _Tiling: 429
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

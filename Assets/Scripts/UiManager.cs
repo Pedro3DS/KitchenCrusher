@@ -19,29 +19,40 @@ public class UiManager : MonoBehaviour
     void OnEnable()
     {
         GameEvents.OnHandleTrigger += ShowUiPanel;
-        GameEvents.OnHandleTriggerRelease += () => uiPanel.SetActive(false);
-        GameEvents.OnTaskCompleted += (task) =>
-        {
-            pointsValue += task.quantity; // Exemplo: 10 pontos por ingrediente na task
-            points.text = pointsValue +" X";
-        };
+        GameEvents.OnHandleTriggerRelease += HideUiPanel;
+        GameEvents.OnTaskCompleted += UpdatePointsDisplay;
+        // GameEvents.OnT += UpdatePointsDiscountDisplay;
     }
 
     void OnDisable()
     {
         GameEvents.OnHandleTrigger -= ShowUiPanel;
-        GameEvents.OnHandleTriggerRelease -= () => uiPanel.SetActive(false);
-        GameEvents.OnTaskCompleted -= (task) =>
-        {
-            pointsValue += task.quantity; // Exemplo: 10 pontos por ingrediente na task
-            points.text = pointsValue +" X";
-        };
+        GameEvents.OnHandleTriggerRelease -= HideUiPanel;
+        GameEvents.OnTaskCompleted -= UpdatePointsDisplay;
+    }
+
+    void UpdatePointsDisplay(KitchenTask task)
+    {
+        pointsValue += task.quantity * 10; // Exemplo: 10 pontos por ingrediente na task
+        
+        points.text = pointsValue + " X";
+    }
+    void UpdatePointsDiscountDisplay(KitchenTask task)
+    {
+        pointsValue -= task.quantity * 11; // Exemplo: 10 pontos por ingrediente na task
+        
+        points.text = pointsValue + " X";
     }
     void ShowUiPanel()
     {
-        if (currentInteractions >= maxInteractionsToShowUi) return;
+        if (currentInteractions > maxInteractionsToShowUi) return;
         uiPanel.SetActive(true);
         currentInteractions++;
+
+    }
+    void HideUiPanel()
+    {
+        uiPanel.SetActive(false);
 
     }
 
@@ -73,7 +84,7 @@ public class UiManager : MonoBehaviour
     IEnumerator InteractionCooldown()
     {
         interactionLocked = true;
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.2f);
         interactionLocked = false;
     }
 
