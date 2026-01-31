@@ -11,11 +11,13 @@ public class TopViewMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float rotationSpeed = 15f;
+    public ParticleSystem moveParticles;
 
     [Header("Physics")]
     public bool usePhysics = true;
 
     private Rigidbody rb;
+    [SerializeField] private Animator animator;
     private Vector3 inputDirection;
 
     private float yValue;
@@ -24,10 +26,11 @@ public class TopViewMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        // animator = GetComponent<Animator>();
 
         // Importante para Top Down
         rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY| RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ;
         yValue = transform.position.y;
     }
 
@@ -55,7 +58,8 @@ public class TopViewMovement : MonoBehaviour
         if (inputDirection.magnitude > 0.1f)
         {
             MoveForward();
-        }else StopMovement();
+        }
+        else StopMovement();
     }
 
     void RotateTowards(Vector3 direction)
@@ -71,9 +75,10 @@ public class TopViewMovement : MonoBehaviour
     void MoveForward()
     {
         Vector3 forwardMovement = transform.forward * moveSpeed;
-
         if (usePhysics)
         {
+            animator?.SetBool("Moving", true);
+            moveParticles?.Play();
             rb.linearVelocity = new Vector3(
                 forwardMovement.x,
                 rb.linearVelocity.y,
@@ -82,6 +87,8 @@ public class TopViewMovement : MonoBehaviour
         }
         else
         {
+            moveParticles?.Play();
+            animator?.SetBool("Moving", true);
             transform.position += forwardMovement * Time.deltaTime;
         }
     }
@@ -90,6 +97,8 @@ public class TopViewMovement : MonoBehaviour
         if (usePhysics)
         {
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            animator?.SetBool("Moving", false);
+            moveParticles?.Stop();
         }
     }
     void StopRotation()

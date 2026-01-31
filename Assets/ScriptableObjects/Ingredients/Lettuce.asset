@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Lettuce
   ingredientIcon: {fileID: 21300000, guid: df2b498f42e88a84288d84f98efc68a6, type: 3}
-  rawPrefab: {fileID: 3341527195219809586, guid: e2cc8cea3f86c5447a14cbd1d4ab8460, type: 3}
-  cookedPrefab: {fileID: 3341527195219809586, guid: e2cc8cea3f86c5447a14cbd1d4ab8460, type: 3}
+  rawPrefab: {fileID: 3562717635999359141, guid: c8bb7e646ce7aae4785160f500b83c65, type: 3}
+  cookedPrefab: {fileID: 3562717635999359141, guid: c8bb7e646ce7aae4785160f500b83c65, type: 3}
   ingredientType: 5
   cookingTime: 2
   burnTime: 3

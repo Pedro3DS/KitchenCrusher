@@ -20,4 +20,7 @@ public class GameEvents : MonoBehaviour
 
     // Tasks
     public static Action<KitchenTask> OnTaskCompleted;
+
+    public static Action OnHandleTrigger;
+    public static Action OnHandleTriggerRelease;
 }
