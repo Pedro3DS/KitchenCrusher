@@ -6,6 +6,7 @@ public class Ghost : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private Material mat;
+    [SerializeField] GameObject hideText;
     private AudioSource _source;
     public float moveSpeed = 2;
     public float catchDistance = 0.5f;
@@ -13,6 +14,7 @@ public class Ghost : MonoBehaviour
     private bool spawned;
     private bool On = true;
     private bool hunting;
+    private bool firstTime = true;
     private Transform mainTarget;
     [SerializeField] float minX, maxX, minZ, maxZ;
 
@@ -36,7 +38,11 @@ public class Ghost : MonoBehaviour
             spawned = true;
             int rand = UnityEngine.Random.Range(14, 24);
             yield return new WaitForSeconds(rand);
-
+            if (moveSpeed > 0)
+            {
+                HideText(hideText);
+            }
+            _source.Play();
             while (mat.color.a < 1)
             {
                 yield return new WaitForSeconds(0);
@@ -101,10 +107,27 @@ public class Ghost : MonoBehaviour
         }
         else 
         {
-            yield return new WaitForSeconds(3);
+            HideText(hideText);
+            yield return new WaitForSeconds(3);        
             moveSpeed = speed;
         }
         
         
+    }
+
+    public void HideText(GameObject textt)
+    {
+        if (firstTime)
+        {
+            firstTime = false;
+            StartCoroutine(textTimerHide(textt));
+        }
+    }
+
+    private System.Collections.IEnumerator textTimerHide(GameObject textt)
+    {
+        textt.SetActive(true);
+        yield return new WaitForSeconds(1);
+        textt.SetActive(false);
     }
 }
