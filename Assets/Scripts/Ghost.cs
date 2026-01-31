@@ -79,7 +79,7 @@ public class Ghost : MonoBehaviour
                 float distance = Vector3.Distance(transform.position, mainTarget.position);
                 //Debug.Log(distance);
                 yield return new WaitForSeconds(0);
-                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * 0.020f);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.fixedDeltaTime);
                 if (distance < catchDistance)
                 {
                     Debug.Log("Killed by ghost");
@@ -117,7 +117,7 @@ public class Ghost : MonoBehaviour
 
     public void HideText(GameObject textt)
     {
-        if (firstTime)
+        if (firstTime && spawned)
         {
             firstTime = false;
             StartCoroutine(textTimerHide(textt));

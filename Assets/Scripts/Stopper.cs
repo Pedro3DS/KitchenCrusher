@@ -64,7 +64,7 @@ public class Stopper : MonoBehaviour
     {
         for (int i = 0; i < viewedInputs.Count; i++)
         {
-            if (Input.GetKey( viewedInputs[i]) && !spotted)
+            if (player.linearVelocity.magnitude != 0 && player.angularVelocity.magnitude != 0 && !spotted)
             {
                 spotted = true;
                 StartCoroutine(Kill());
