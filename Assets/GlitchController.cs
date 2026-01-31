@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Events;
 
 public class GlitchController : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class GlitchController : MonoBehaviour
 
     [SerializeField] private GameObject topBox;
     
-    private int currentCameraIndex = 0;
+    public int currentCameraIndex = 0;
+
+    public UnityEvent events;
 
     void OnEnable()
     {
@@ -32,7 +35,7 @@ public class GlitchController : MonoBehaviour
         GameManager.OnChangeToMomView -= ActivateGlitchMode;
     }
 
-    void ActivateGlitchMode()
+   public void ActivateGlitchMode()
     {
         // Se ainda houver câmeras na lista, inicia o efeito
         if (currentCameraIndex < glitchCameras.Length)
@@ -94,23 +97,24 @@ public class GlitchController : MonoBehaviour
 
         // 8. Incrementa o index para a próxima vez que o evento for chamado
         currentCameraIndex++;
-
+        events.Invoke();
         // Se após incrementar chegamos ao fim, podemos encerrar ou esperar o próximo evento
         if (currentCameraIndex >= glitchCameras.Length)
         {
-            Debug.Log("Última câmera alcançada. O próximo glitch encerrará o jogo.");
+            
         }
     }
 
     void EndGame()
     {
         Debug.Log("Encerrando o jogo...");
+        events.Invoke();
         // Aqui você pode carregar uma cena de créditos ou fechar o app
-        Application.Quit(); 
+       // Application.Quit(); 
         
         // Se estiver no editor do Unity, isso ajuda a testar:
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        //#if UNITY_EDITOR
+       // UnityEditor.EditorApplication.isPlaying = false;
+        //#endif
     }
 }

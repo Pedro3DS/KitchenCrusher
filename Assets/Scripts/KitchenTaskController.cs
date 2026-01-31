@@ -58,6 +58,7 @@ public class KitchenTaskController : MonoBehaviour
         {
             points = 1;
         }
+        pointText.text = $"{points}x";
     }
 
     private void OnEnable() => GameEvents.OnPlateDelivered += CheckTasks;

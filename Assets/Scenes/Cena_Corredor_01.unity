@@ -9297,6 +9297,7 @@ MonoBehaviour:
   moveParticles: {fileID: 1126485820}
   usePhysics: 1
   animator: {fileID: 0}
+  inputDirection: {x: 0, y: 0, z: 0}
 --- !u!4 &1621257733
 Transform:
   m_ObjectHideFlags: 0
@@ -15582,7 +15583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a62205e8c7de34694fcbbaa8f90041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: KitchenCorredor
+  sceneName: EvilKitchen1
 --- !u!135 &8734212642095366956
 SphereCollider:
   m_ObjectHideFlags: 0
