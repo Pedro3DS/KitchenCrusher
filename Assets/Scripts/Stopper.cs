@@ -10,7 +10,7 @@ using UnityEngine.Rendering.Universal;
 public class Stopper : MonoBehaviour
 {
     [SerializeField] Volume filter;
-    [SerializeField] Rigidbody player;
+    [SerializeField] TopViewMovement player;
     private AudioSource _source;
     public List<KeyCode> viewedInputs = new List<KeyCode>();
     public UnityEvent activeEvents;
@@ -44,12 +44,20 @@ public class Stopper : MonoBehaviour
         {
             int rand = UnityEngine.Random.Range(7, 14);
             yield return new WaitForSeconds(rand);
-           // Debug.Log("I see you");
-            activeEvents.Invoke();
+            rand = UnityEngine.Random.Range(0, 2);
+            Debug.Log(rand);
+            if (rand == 0)
+            {
+            } else
+            {
+                continue;
+            }
+                // Debug.Log("I see you");
+                activeEvents.Invoke();
             yield return new WaitForSeconds(1);
             isWatching = true;
             
-            rand = UnityEngine.Random.Range(3, 5);
+            rand = UnityEngine.Random.Range(2, 4);
             yield return new WaitForSeconds(rand);
             if (!spotted)
             {
@@ -64,7 +72,7 @@ public class Stopper : MonoBehaviour
     {
         for (int i = 0; i < viewedInputs.Count; i++)
         {
-            if (player.linearVelocity.magnitude != 0 && player.angularVelocity.magnitude != 0 && !spotted)
+            if (player.inputDirection.magnitude != 0 && !spotted && !player.gameObject.GetComponent<Rigidbody>().isKinematic)
             {
                 spotted = true;
                 StartCoroutine(Kill());

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class KitchenTaskController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Transform taskListField;
     [SerializeField] private TaskObject taskPrefab;
+    [SerializeField] private Slider stressBar;
 
     [Header("Tasks")]
     [SerializeField] private KitchenTask[] possibleTasks;
@@ -31,6 +33,7 @@ public class KitchenTaskController : MonoBehaviour
     private int failedTasksCount = 0;
     private int stressThreshold;
     private bool isStressed = false;
+    private int stressLevel = 0;
 
     private readonly List<TaskObject> activeTasks = new List<TaskObject>();
 
@@ -120,6 +123,8 @@ public class KitchenTaskController : MonoBehaviour
     void TriggerStressEvent()
     {
         isStressed = true;
+        stressBar.gameObject.SetActive(true);
+        SliderValue(0.2f);
         // Limpa tasks normais para focar no horror
         foreach (var t in activeTasks) Destroy(t.gameObject);
         activeTasks.Clear();
@@ -128,6 +133,21 @@ public class KitchenTaskController : MonoBehaviour
         SpawnTaskUI(glitchTask);
 
         Debug.Log("SISTEMA DE ESTRESSE ATIVADO. Vá para o armazém.");
+    }
+
+
+    public void SliderValue(float value)
+    {
+        StartCoroutine(SliderRoutine(value));
+    }
+    private IEnumerator SliderRoutine(float value)
+    {
+        float finalValue = stressBar.value + value;
+        while (stressBar.value < finalValue)
+        {
+            yield return new WaitForSeconds(0);
+            Mathf.MoveTowards(stressBar.value, finalValue, 0.1f);
+        }
     }
 }
 

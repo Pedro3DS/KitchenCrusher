@@ -7,11 +7,12 @@ public class Ghost : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Material mat;
     [SerializeField] GameObject hideText;
+    [SerializeField] private ParticleSystem particle;
     private AudioSource _source;
     public float moveSpeed = 2;
     public float catchDistance = 0.5f;
     public UnityEvent catchEvents;
-    private bool spawned;
+    private bool spawned = false;
     private bool On = true;
     private bool hunting;
     private bool firstTime = true;
@@ -33,16 +34,27 @@ public class Ghost : MonoBehaviour
     private System.Collections.IEnumerator showUpTimer()
     {
         while (On && !spawned)
-        {
-            transform.position = new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
-            spawned = true;
-            int rand = UnityEngine.Random.Range(14, 24);
+        {                  
+            int rand = UnityEngine.Random.Range(14, 24);     
             yield return new WaitForSeconds(rand);
+            spawned = true;
+            rand = UnityEngine.Random.Range(0, 2);
+            Debug.Log(rand);
+            if (rand == 0)
+            {
+            }
+            else
+            {
+                spawned = false;
+                continue;
+            }
             if (moveSpeed > 0)
             {
                 HideText(hideText);
             }
+            transform.position = new Vector3(Random.Range(minX, maxX), transform.position.y, Random.Range(minZ, maxZ));
             _source.Play();
+            yield return new WaitForSeconds(0.2f);
             while (mat.color.a < 1)
             {
                 yield return new WaitForSeconds(0);
@@ -50,6 +62,7 @@ public class Ghost : MonoBehaviour
               colorValue = Mathf.MoveTowards(colorValue, 1, 0.05f);
             mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, colorValue);
             }
+            particle.Play();
             yield return new WaitForSeconds(2);
             hunting = true;
             StartCoroutine(GetTarget());
@@ -63,6 +76,7 @@ public class Ghost : MonoBehaviour
                 colorValue = Mathf.MoveTowards(colorValue, 0, 0.05f);
                 mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, colorValue);
             }
+            particle.Stop();
             spawned = false;
             // Debug.Log("I see you");
 
@@ -117,6 +131,7 @@ public class Ghost : MonoBehaviour
 
     public void HideText(GameObject textt)
     {
+        Debug.Log(spawned);
         if (firstTime && spawned)
         {
             firstTime = false;
