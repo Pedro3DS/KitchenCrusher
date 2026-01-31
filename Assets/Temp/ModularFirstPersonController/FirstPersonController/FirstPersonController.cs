@@ -219,7 +219,7 @@ public class FirstPersonController : MonoBehaviour
                 rightStick = JoystickController.Instance.GetRightStick();
             }
 
-            if(GameManager.Instance != null)
+            if (GameManager.Instance != null)
             {
                 rightStick *= GameManager.Instance.cameraMovementMultiply;
             }
@@ -400,7 +400,8 @@ public class FirstPersonController : MonoBehaviour
             }
 
             // All movement calculations shile sprint is active
-            if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
+            if (enableSprint && Input.GetKey(sprintKey) ||
+                             (JoystickController.Instance != null && JoystickController.Instance.IsWestButtonPressed()) && sprintRemaining > 0f && !isSprintCooldown)
             {
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
 

@@ -23,4 +23,8 @@ public class GameEvents : MonoBehaviour
 
     public static Action OnHandleTrigger;
     public static Action OnHandleTriggerRelease;
+
+
+    // Evento para o Corredor: passa o index do HallConfigs
+    public static Action<int> OnHallwayChangeTriggered;
 }
