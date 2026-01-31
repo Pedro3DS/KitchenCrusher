@@ -30,4 +30,15 @@ public class FollowingCamera : MonoBehaviour
             transform.position = new Vector3(clampedX, transform.position.y, clampedZ);
         }
     }
+    public void SetXLimits(Vector2 xLimits)
+    {
+        limitLeft = xLimits.x;
+        limitRight = xLimits.y;
+    }
+
+    public void SetZLimits(Vector2 zLimits)
+    {
+        limitDown = zLimits.x;
+        limitUp = zLimits.y;
+    }
 }

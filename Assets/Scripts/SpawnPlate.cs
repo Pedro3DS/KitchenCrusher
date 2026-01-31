@@ -9,8 +9,6 @@ public class SpawnPlate : MonoBehaviour
 
     [Header("Configuração do Salto")]
     [SerializeField] private float upForce = 5f;        // Força para cima
-    [SerializeField] private float sideForce = 1f;      // Força aleatória para os lados (opcional)
-    [SerializeField] private float torqueForce = 2f;    // Força de rotação para o prato "girar" no ar
 
     void OnEnable()
     {

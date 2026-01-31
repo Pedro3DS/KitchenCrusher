@@ -105,7 +105,7 @@ public class Plate : MonoBehaviour
         transform.SetParent(handler.holdPoint);
         transform.localPosition = Vector3.zero;
 
-        if(GetComponent<Rigidbody>() != null)
+        if (GetComponent<Rigidbody>() != null)
         {
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
@@ -142,15 +142,17 @@ public class Plate : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("BoxPlate"))
+        if (collision.gameObject.CompareTag("Trash"))
         {
+            Destroy(this.gameObject);
+            GameEvents.OnPlateBraked?.Invoke();
             // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
-        if(collision.gameObject.CompareTag("Ground") && !isHeld)
+        if (collision.gameObject.CompareTag("Ground") && !isHeld)
         {
             Debug.Log("Prato Quebrou!");
-           Destroy(this.gameObject);
-           GameEvents.OnPlateBraked?.Invoke();
+            Destroy(this.gameObject);
+            GameEvents.OnPlateBraked?.Invoke();
         }
     }
 }

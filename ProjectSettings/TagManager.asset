@@ -9,6 +9,7 @@ TagManager:
   - CookingStation
   - BoxPlate
   - Ground
+  - Trash
   layers:
   - Default
   - TransparentFX

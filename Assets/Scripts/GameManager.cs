@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     #region Events
     public static event Action OnChangeToFirstPersonView;
     public static event Action OnChangeToTopDownView;
+    public static Action OnChangeToMomView;
     #endregion
 
     void Awake()
