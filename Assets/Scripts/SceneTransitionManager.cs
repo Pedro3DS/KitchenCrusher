@@ -71,4 +71,9 @@ public class SceneTransitionManager : MonoBehaviour
 
         fadeCanvasGroup.alpha = targetAlpha;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
