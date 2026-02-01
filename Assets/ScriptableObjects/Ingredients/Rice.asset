@@ -19,4 +19,4 @@ MonoBehaviour:
   ingredientType: 3
   cookingTime: 3
   burnTime: 3
-  needCooking: 0
+  needCooking: 1

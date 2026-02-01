@@ -83,7 +83,13 @@ public class KitchenTaskController : MonoBehaviour
         SpawnTaskUI(randomTask);
 
         // Dificuldade progressiva suave
+
+        if(maxTasks < 4 && (points >= 15 && points <= 16)) maxTasks = maxTasks+1;
+
+        
         if (maxTasks < 4) maxTasks = (failedTasksCount / 2) + 1;
+        
+
     }
 
     void SpawnTaskUI(KitchenTask data)

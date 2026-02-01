@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Cena_Corredor_01.unity
     guid: d3752729dcbb41e419ac9a739cc88887
   - enabled: 1
+    path: Assets/Scenes/Cena_Corredor_02.unity
+    guid: fe493fabbfad5ec4eb78c9e700cbdb69
+  - enabled: 1
     path: Assets/Scenes/EvilKitchen1.unity
     guid: 3bc1f5adb876728448d9802e111e447f
   - enabled: 1

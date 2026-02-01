@@ -96,8 +96,8 @@ public class GlitchController : MonoBehaviour
         }
 
         // 8. Incrementa o index para a próxima vez que o evento for chamado
-        currentCameraIndex++;
         events.Invoke();
+        currentCameraIndex++;
         // Se após incrementar chegamos ao fim, podemos encerrar ou esperar o próximo evento
         if (currentCameraIndex >= glitchCameras.Length)
         {

@@ -16,7 +16,7 @@ public class BoxInteraction : MonoBehaviour
             {
                 if (InteractPressed())
                 {
-                    handleObjectsPlayer.HoldIngredient(containedIngredient, false);
+                    handleObjectsPlayer.HoldIngredient(containedIngredient, !containedIngredient.needCooking);
                     Debug.Log("Picked up ingredient from box: " + containedIngredient.ingredientName);
                 }
             }
