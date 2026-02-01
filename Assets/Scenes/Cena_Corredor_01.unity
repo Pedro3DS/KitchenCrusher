@@ -9356,8 +9356,8 @@ MonoBehaviour:
   sprintFOVStepTime: 10
   useSprintBar: 0
   hideBarWhenFull: 1
-  sprintBarBG: {fileID: 0}
-  sprintBar: {fileID: 0}
+  sprintBarBG: {fileID: 1567699742}
+  sprintBar: {fileID: 2000905283}
   sprintBarWidthPercent: 0.156
   sprintBarHeightPercent: 0.001
   enableJump: 0

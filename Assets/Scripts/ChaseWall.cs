@@ -88,7 +88,7 @@ public class ChaseWall : MonoBehaviour
         }
 
         // Reinicia a cena
-        Invoke("RestartLevel", 0.2f);
+        Invoke("RestartLevel", 1f);
     }
 
     void RestartLevel()
