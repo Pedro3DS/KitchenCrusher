@@ -88,7 +88,7 @@ public class CookingStation : MonoBehaviour
         timer = 0f;
         state = CookingState.Idle;
         ingredientIcon.enabled = false;
-        cookingSlider.gameObject.SetActive(false);
+        // cookingSlider.gameObject.SetActive(false);
     }
 
     // Lógica do Botão (E ou Joystick)
