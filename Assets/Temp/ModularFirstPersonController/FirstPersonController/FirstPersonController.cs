@@ -400,8 +400,8 @@ public class FirstPersonController : MonoBehaviour
             }
 
             // All movement calculations shile sprint is active
-            if (enableSprint && Input.GetKey(sprintKey) ||
-                             (JoystickController.Instance != null && JoystickController.Instance.IsWestButtonPressed()) && sprintRemaining > 0f && !isSprintCooldown)
+            if (enableSprint && (Input.GetKey(sprintKey) ||
+                             (JoystickController.Instance != null && JoystickController.Instance.IsWestButtonPressed())) && sprintRemaining > 0f && !isSprintCooldown)
             {
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
 
